@@ -45,6 +45,12 @@ h7 {
 h8 {
     font-weight: 700;
     font-size: 28px;
+    color: #888888;
+    font-family: Microsoft JhengHei;
+}
+h9 {
+    font-weight: 700;
+    font-size: 28px;
     font-family: Microsoft JhengHei;
 }
 
