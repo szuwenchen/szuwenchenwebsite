@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<!--
+    履歷原始檔（A4 兩頁）。修改內容後，用瀏覽器開啟並「列印 → 另存為 PDF」
+    （邊界選「無」、勾選「背景圖形」），存成 download/SzuWenChen_Resume.pdf 即可。
+-->
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <title>陳嗣文 SzuWen Chen｜履歷</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        @font-face {
+            font-family: 'Cubic 11';
+            src: url('https://cdn.jsdelivr.net/gh/ACh-K/Cubic-11@master/fonts/web/Cubic_11.woff2') format('woff2');
+            font-display: block;
+        }
+
+        @page { size: A4; margin: 0; }
+
+        :root {
+            --ink: #16153d;
+            --text: #2b2a45;
+            --dim: #6d6b8c;
+            --line: #cfcde3;
+            --soft: #f1f0f9;
+            --yellow: #ffd447;
+            --pink: #e8356d;
+            --cyan: #0b84a8;
+            --green: #1f9d57;
+            --font-pixel: 'Cubic 11', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+            --font-en: 'Silkscreen', 'Cubic 11', sans-serif;
+            --font-body: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+        html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        body { margin: 0; background: #8a89a3; color: var(--text); font-family: var(--font-body); font-size: 9.8pt; line-height: 1.65; }
+        h1, h2, h3, p, ul, dl, dd { margin: 0; padding: 0; }
+        ul { list-style: none; }
+        img { display: block; max-width: 100%; }
+        a { color: inherit; text-decoration: none; }
+
+        .page {
+            position: relative;
+            width: 210mm;
+            height: 297mm;
+            margin: 8mm auto;
+            padding: 13mm 14mm 12mm;
+            background: #fff;
+            overflow: hidden;
+            page-break-after: always;
+        }
+
+        .page:last-child { page-break-after: auto; }
+
+        @media print {
+            body { background: none; }
+            .page { margin: 0; }
+        }
+
+        /* ----- 頁首 ----- */
+
+        .head {
+            display: flex;
+            align-items: center;
+            gap: 6mm;
+            padding-bottom: 5mm;
+            border-bottom: 1.2mm solid var(--ink);
+        }
+
+        .avatar {
+            flex: none;
+            width: 25mm;
+            height: 25mm;
+            padding: 1mm;
+            background: var(--ink);
+            box-shadow: 1.2mm 1.2mm 0 var(--pink);
+        }
+
+        .avatar img { width: 100%; height: 100%; object-fit: cover; background: #dfe6f5; }
+
+        .head-name { flex: 1; }
+        .name-en { font-family: var(--font-en); font-size: 8pt; font-weight: 700; letter-spacing: .28em; color: var(--pink); }
+        .name-zh { font-family: var(--font-pixel); font-size: 30pt; font-weight: 400; line-height: 1.15; color: var(--ink); letter-spacing: .08em; }
+        .name-role { margin-top: 1mm; font-family: var(--font-pixel); font-size: 11pt; color: var(--text); letter-spacing: .06em; }
+
+        .head-contact { flex: none; text-align: right; font-size: 8.6pt; line-height: 1.75; }
+        .head-contact dt { display: inline; font-family: var(--font-en); font-size: 6.6pt; font-weight: 700; letter-spacing: .14em; color: var(--cyan); margin-right: 1.5mm; }
+        .head-contact dd { display: inline; font-weight: 500; color: var(--ink); }
+
+        /* ----- 區塊標題 ----- */
+
+        .sec { margin-top: 7mm; }
+
+        .sec-title {
+            display: flex;
+            align-items: center;
+            gap: 2.5mm;
+            margin-bottom: 2.6mm;
+            padding-bottom: 1.4mm;
+            border-bottom: .6mm solid var(--ink);
+            font-family: var(--font-pixel);
+            font-size: 12.5pt;
+            font-weight: 400;
+            line-height: 1.2;
+            color: var(--ink);
+            letter-spacing: .06em;
+        }
+
+        .tag {
+            padding: .5mm 2mm;
+            background: var(--ink);
+            color: var(--yellow);
+            font-family: var(--font-en);
+            font-size: 7pt;
+            font-weight: 700;
+            letter-spacing: .16em;
+        }
+
+        /* ----- 第一頁：兩欄 ----- */
+
+        .cols { display: grid; grid-template-columns: 52mm minmax(0, 1fr); gap: 7mm; }
+
+        .summary { padding: 3mm 4mm; background: var(--soft); border-left: 1.2mm solid var(--cyan); }
+
+        .kv > div { padding: 1.8mm 0; border-bottom: .3mm dotted var(--line); }
+        .kv.is-inline > div { display: grid; grid-template-columns: 12mm minmax(0, 1fr); align-items: baseline; }
+        .kv > div:last-child { border-bottom: 0; }
+        .kv dt { font-family: var(--font-pixel); font-size: 8.4pt; color: var(--dim); letter-spacing: .06em; }
+        .kv dd { color: var(--ink); font-weight: 500; }
+
+        .chips { display: flex; flex-wrap: wrap; gap: 1.2mm; margin-top: .8mm; }
+        .chip { padding: 0 1.8mm; border: .4mm solid var(--ink); font-family: var(--font-pixel); font-size: 8.4pt; line-height: 1.55; color: var(--ink); white-space: nowrap; }
+        .chip.is-main { background: var(--yellow); }
+        .chip.is-sub { border-color: var(--line); color: var(--dim); }
+
+        .edu li + li { margin-top: 2mm; }
+        .edu strong { display: block; font-family: var(--font-pixel); font-weight: 400; font-size: 9.6pt; color: var(--ink); }
+        .edu time, .job time { font-family: var(--font-en); font-size: 7pt; letter-spacing: .04em; color: var(--cyan); white-space: nowrap; }
+
+        /* ----- 經歷 ----- */
+
+        .job + .job { margin-top: 2.8mm; padding-top: 2.8mm; border-top: .3mm dotted var(--line); }
+        .job-head { display: flex; align-items: baseline; gap: 2.5mm; }
+        .job-head h3 { font-family: var(--font-pixel); font-size: 11pt; font-weight: 400; color: var(--ink); }
+        .job-head .role { flex: 1; font-size: 8.8pt; color: var(--dim); }
+        .badge { align-self: center; padding: 0 1.4mm; border: .4mm solid var(--green); color: var(--green); font-family: var(--font-pixel); font-size: 7.4pt; line-height: 1.5; white-space: nowrap; }
+
+        .dots { margin-top: 1mm; }
+        .dots li { position: relative; padding-left: 3.6mm; }
+        .dots li + li { margin-top: .5mm; }
+        .dots li::before { content: ''; position: absolute; left: .4mm; top: .62em; width: 1.3mm; height: 1.3mm; background: var(--pink); }
+        .dots b { color: var(--ink); font-weight: 700; }
+
+        /* ----- 第二頁：作品 ----- */
+
+        .works { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7mm 6mm; }
+        .work { display: grid; grid-template-columns: 36mm minmax(0, 1fr); gap: 4mm; align-items: start; }
+
+        .work-thumb { position: relative; height: 28mm; border: .6mm solid var(--ink); background: var(--soft); box-shadow: 1mm 1mm 0 var(--line); }
+        .work-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .work-thumb.is-contain img { object-fit: contain; padding: 1.5mm; }
+        .work-no { position: absolute; top: 0; left: 0; padding: 0 1.4mm; background: var(--ink); color: var(--yellow); font-family: var(--font-en); font-size: 6.6pt; font-weight: 700; line-height: 1.7; }
+
+        .work h3 { font-family: var(--font-pixel); font-size: 11pt; font-weight: 400; line-height: 1.3; color: var(--ink); }
+        .work-meta { font-size: 7.8pt; color: var(--dim); }
+        .work-meta b { font-family: var(--font-en); font-size: 7pt; color: var(--cyan); margin-right: 1mm; }
+        .work-role { margin: .6mm 0; font-family: var(--font-pixel); font-size: 8.4pt; color: var(--pink); }
+        .work p.desc { font-size: 8.8pt; line-height: 1.6; }
+
+        .early { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.6mm 6mm; }
+        .early li { display: flex; align-items: baseline; gap: 2mm; font-size: 8.6pt; }
+        .early time { flex: none; font-family: var(--font-en); font-size: 7pt; color: var(--cyan); }
+        .early strong { flex: none; font-family: var(--font-pixel); font-weight: 400; color: var(--ink); }
+        .early span { color: var(--dim); font-size: 8pt; }
+
+        .trophies li + li { margin-top: 3.4mm; }
+        .trophies strong { font-family: var(--font-pixel); font-weight: 400; font-size: 10pt; color: var(--ink); }
+        .trophies time { margin-left: 2mm; font-family: var(--font-en); font-size: 7pt; color: var(--cyan); }
+        .trophies p { font-size: 9.2pt; }
+
+        .foot {
+            position: absolute;
+            left: 14mm;
+            right: 14mm;
+            bottom: 10mm;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4mm;
+            padding: 2.4mm 4mm;
+            background: var(--ink);
+            color: #fff;
+        }
+
+        .foot .en { font-family: var(--font-en); font-size: 7pt; font-weight: 700; letter-spacing: .16em; color: var(--yellow); }
+        .foot .url { font-family: var(--font-pixel); font-size: 9.6pt; letter-spacing: .02em; }
+
+        .page-no { position: absolute; right: 14mm; bottom: 5mm; font-family: var(--font-en); font-size: 6.6pt; letter-spacing: .14em; color: var(--dim); }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===================== 第 1 頁 ===================== -->
+    <section class="page">
+        <header class="head">
+            <div class="avatar"><img src="img/Profile1.png" alt=""></div>
+            <div class="head-name">
+                <p class="name-en">SZUWEN CHEN</p>
+                <h1 class="name-zh">陳嗣文</h1>
+                <p class="name-role">遊戲程式開發 / 遊戲設計</p>
+            </div>
+            <dl class="head-contact">
+                <div><dt>EMAIL</dt><dd>szuwenchen@gmail.com</dd></div>
+                <div><dt>WEB</dt><dd>szuwenchen.github.io/szuwenchenwebsite</dd></div>
+            </dl>
+        </header>
+
+        <div class="cols">
+            <!-- 左欄 -->
+            <aside>
+                <section class="sec">
+                    <h2 class="sec-title"><span class="tag">SKILLS</span>技能</h2>
+                    <dl class="kv">
+                        <div>
+                            <dt>遊戲引擎</dt>
+                            <dd class="chips"><span class="chip is-main">Unity</span><span class="chip is-sub">Cocos2d-x</span></dd>
+                        </div>
+                        <div>
+                            <dt>程式語言</dt>
+                            <dd class="chips"><span class="chip is-main">C#</span></dd>
+                        </div>
+                        <div>
+                            <dt>視覺軟體</dt>
+                            <dd class="chips"><span class="chip">Photoshop</span><span class="chip">Illustrator</span><span class="chip">Premiere</span></dd>
+                        </div>
+                        <div>
+                            <dt>其他</dt>
+                            <dd class="chips"><span class="chip">遊戲企劃</span><span class="chip">互動程式設計</span><span class="chip">使用者體驗</span><span class="chip">文案企劃</span><span class="chip">技術研究</span></dd>
+                        </div>
+                    </dl>
+                </section>
+
+                <section class="sec">
+                    <h2 class="sec-title"><span class="tag">LANGUAGE</span>語言</h2>
+                    <dl class="kv is-inline">
+                        <div><dt>中文</dt><dd>精通</dd></div>
+                        <div><dt>台語</dt><dd>普通</dd></div>
+                        <div><dt>英文</dt><dd>聽、讀、寫普通，說略懂</dd></div>
+                    </dl>
+                </section>
+
+                <section class="sec">
+                    <h2 class="sec-title"><span class="tag">TUTORIAL</span>學歷</h2>
+                    <ul class="edu">
+                        <li>
+                            <time>2011.09 – 2014.01</time>
+                            <strong>國立台北科技大學</strong>
+                            互動媒體設計研究所（碩士）
+                        </li>
+                        <li>
+                            <time>2006.09 – 2011.01</time>
+                            <strong>國立台北科技大學</strong>
+                            電子工程系
+                        </li>
+                    </ul>
+                </section>
+            </aside>
+
+            <!-- 右欄 -->
+            <div>
+                <section class="sec">
+                    <h2 class="sec-title"><span class="tag">STATUS</span>關於我</h2>
+                    <p class="summary">我是陳嗣文，自 2018 年起以接案形式工作，內容著重在遊戲設計以及相關的程式開發，能夠針對專案預算及現有資源提出 CP 值最大化的內容。在此之前於鈊象電子任職三年半，負責遊戲前端製作、後端資料串接與技術研究；接案後則多次以製作人身份兼任企劃與主程式，從規劃到交付完成整款遊戲。</p>
+                </section>
+
+                <section class="sec">
+                    <h2 class="sec-title"><span class="tag">QUEST LOG</span>工作經歷</h2>
+
+                    <article class="job">
+                        <div class="job-head">
+                            <h3>大頑遊戲</h3>
+                            <span class="role">遊戲開發工程師（外包合作）</span>
+                            <span class="badge">進行中</span>
+                            <time>2023.12 – NOW</time>
+                        </div>
+                        <ul class="dots">
+                            <li>目前以外包形式合作中，以遊戲前端開發為主。</li>
+                            <li>運用 AI 工具協助開發，將工作範圍延伸至後端與後台。</li>
+                        </ul>
+                    </article>
+
+                    <article class="job">
+                        <div class="job-head">
+                            <h3>不或互動</h3>
+                            <span class="role">前端工程師（外包合作）</span>
+                            <time>2023.02 – 2023.10</time>
+                        </div>
+                        <ul class="dots">
+                            <li>以外包形式合作，負責遊戲前端內容製作，並進行少量技術研究。</li>
+                        </ul>
+                    </article>
+
+                    <article class="job">
+                        <div class="job-head">
+                            <h3>Freelancer</h3>
+                            <span class="role">遊戲設計、遊戲程式開發</span>
+                            <span class="badge">進行中</span>
+                            <time>2018.01 – NOW</time>
+                        </div>
+                        <ul class="dots">
+                            <li>與大學教師合作開發三款教育遊戲（守護檜季森林、做就對了、守護檜季森林 2），擔任<b>遊戲製作人</b>並兼任企劃、UI 與程式開發。</li>
+                            <li>設計學術內容與數位遊戲之間的結合，聆聽業主需求給予適宜的建議，並評估其資源和時程提供最佳解法。</li>
+                            <li>自組團隊開發手機遊戲，擔任 <b>PM、企劃與程式</b>：負責時程管理與營運規劃、撰寫企劃規格書、數值設計與平衡、規劃數據埋點。</li>
+                        </ul>
+                    </article>
+
+                    <article class="job">
+                        <div class="job-head">
+                            <h3>鈊象電子</h3>
+                            <span class="role">APP 軟體組 高級軟體工程師</span>
+                            <time>2014.05 – 2017.11</time>
+                        </div>
+                        <ul class="dots">
+                            <li>參與三個專案：兩款棋牌遊戲「鬥地主」（Unity、Cocos2d-x，中國小包市場），以及博弈遊戲平台「金好運娛樂城」（Unity，臺灣市場）。</li>
+                            <li><b>前端</b>：製作遊戲功能並模組化、串接遊戲流程、使用者體驗與介面優化、製作工具供企劃人員調校測試、和後端人員制定資料格式與規則、網路資料接駁。</li>
+                            <li><b>技術研究</b>：實現 Android 及 iOS 原生功能於遊戲中（相機、截圖等）、第三方套件研究及接駁（金流、數據分析、臉書 SDK），並製作技術文件分享。</li>
+                            <li><b>專業以外</b>：訓練新人並規劃課程作業、代表公司參加技術論壇與展覽並於內部分享、自主提供技術改進方案與遊戲體驗優化方向。</li>
+                        </ul>
+                    </article>
+
+                    <article class="job">
+                        <div class="job-head">
+                            <h3>頑石創意</h3>
+                            <span class="role">互動部 實習</span>
+                            <time>2011.07 – 2011.09</time>
+                        </div>
+                        <ul class="dots">
+                            <li>互動遊戲程式設計、互動裝置整合、協助展場佈置與規劃。</li>
+                        </ul>
+                    </article>
+                </section>
+            </div>
+        </div>
+
+        <p class="page-no">PAGE 1 / 2</p>
+    </section>
+
+    <!-- ===================== 第 2 頁 ===================== -->
+    <section class="page">
+        <section class="sec" style="margin-top:0">
+            <h2 class="sec-title"><span class="tag">STAGE SELECT</span>代表作品</h2>
+
+            <div class="works">
+                <article class="work">
+                    <div class="work-thumb"><img src="img/resume/barnabus.jpg" alt=""><span class="work-no">2023</span></div>
+                    <div>
+                        <h3>Barnabus</h3>
+                        <p class="work-meta"><b>APP</b>Unity｜MEandMine｜團隊作品</p>
+                        <p class="work-role">遊戲主程式</p>
+                        <p class="desc">教導孩童認識情緒的教育型遊戲。製作其中一款小遊戲，並負責整個平台的串接整合：遊戲 Flow、影片串流、進度及行為紀錄、帳號管理流程、第三方登入；同時參與產品企劃與策略討論。</p>
+                    </div>
+                </article>
+
+                <article class="work">
+                    <div class="work-thumb"><img src="img/resume/forest2.jpg" alt=""><span class="work-no">2021</span></div>
+                    <div>
+                        <h3>守護檜季森林 2</h3>
+                        <p class="work-meta"><b>APP</b>Unity｜元培醫事科技大學</p>
+                        <p class="work-role">製作人 / 企劃 / 程式 / 美術整合</p>
+                        <p class="desc">以學習會計為主的 RPG 教育遊戲。負責整體內容規劃與程式撰寫（Unity TopDown Engine），並自製角色點陣圖、頭像與 Icon，同時與計劃主持人進行學術方面的討論與迭代。</p>
+                    </div>
+                </article>
+
+                <article class="work">
+                    <div class="work-thumb"><img src="img/resume/dtrt.jpg" alt=""><span class="work-no">2019</span></div>
+                    <div>
+                        <h3>做就對了</h3>
+                        <p class="work-meta"><b>PC</b>Unity｜元培醫事科技大學</p>
+                        <p class="work-role">製作人 / 主企劃 / 主程式</p>
+                        <p class="desc">以經營決策為主的 AVG 教育遊戲。玩家翻開事件卡後左滑或右滑做出決策，決策會改變人格參數，低於標準值則經營結束。</p>
+                    </div>
+                </article>
+
+                <article class="work">
+                    <div class="work-thumb is-contain"><img src="img/resume/oysterlogo.jpg" alt=""><span class="work-no">2019</span></div>
+                    <div>
+                        <h3>青蚵嫂</h3>
+                        <p class="work-meta"><b>APP</b>Unity｜渚心</p>
+                        <p class="work-role">製作人 / 主企劃 / 主程式</p>
+                        <p class="desc">體驗七股採蚵文化後發想的遊戲，以類似 Tap 的反應力玩法，帶玩家經歷從採蚵少女到青蚵嫂的生命故事。</p>
+                    </div>
+                </article>
+
+                <article class="work">
+                    <div class="work-thumb is-contain"><img src="img/resume/sgc.jpg" alt=""><span class="work-no">2017</span></div>
+                    <div>
+                        <h3>金好運娛樂城</h3>
+                        <p class="work-meta"><b>APP</b>Unity｜鈊象電子｜團隊作品</p>
+                        <p class="work-role">前端工程師</p>
+                        <p class="desc">已上架 Android 與 iOS 的博弈遊戲平台。負責平台架構規劃、平台功能製作、連線功能接駁、遊戲動態效果設計與規格優化。</p>
+                    </div>
+                </article>
+
+                <article class="work">
+                    <div class="work-thumb"><img src="img/resume/ddz2.jpg" alt=""><span class="work-no">2014–15</span></div>
+                    <div>
+                        <h3>鬥地主（兩款）</h3>
+                        <p class="work-meta"><b>APP</b>Unity、Cocos2d-x｜鈊象電子</p>
+                        <p class="work-role">前端工程師</p>
+                        <p class="desc">以「弱連網」架構製作的棋牌遊戲，含劇情闖關、街機與試煉模式。負責前端功能製作、連線功能接駁、動態效果設計與規格提案。</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="sec">
+            <h2 class="sec-title"><span class="tag">ARCHIVE</span>其他作品</h2>
+            <ul class="early">
+                <li><time>2018</time><strong>守護檜季森林</strong><span>會計教育遊戲｜Unity｜製作人</span></li>
+                <li><time>2015</time><strong>叢戰巴龍</strong><span>體感互動裝置｜Unity、Kinect｜企劃、程式</span></li>
+                <li><time>2013</time><strong>Fire x Escape</strong><span>碩士論文・防災教育遊戲｜Unity</span></li>
+                <li><time>2013</time><strong>4R Hero</strong><span>微軟潛能創意盃｜Construct 2</span></li>
+                <li><time>2012</time><strong>EarthBeat 星跳</strong><span>新一代設計展・互動裝置｜Flash</span></li>
+                <li><time>2011</time><strong>DrumBeat 陣令</strong><span>國際 YDW 設計工作營・互動裝置｜Flash</span></li>
+            </ul>
+        </section>
+
+        <section class="sec">
+            <h2 class="sec-title"><span class="tag">TROPHIES</span>特殊經歷</h2>
+            <ul class="trophies">
+                <li>
+                    <strong>【新三國志手機版】S54 蜀國「海闊天空」第六任團長</strong>
+                    <p>軍團約 70 人，任內軍團戰力為全服最強。除了維持國內的制度和秩序，還要和另外兩國的領導者進行外交以維持伺服器的和平，是在日常有工作的情況下兼顧的領導與談判經驗。</p>
+                </li>
+                <li>
+                    <strong>【三國志戰略版】盟主、幹部</strong>
+                    <p>負責外交、內政與戰略規劃。</p>
+                </li>
+                <li>
+                    <strong>YouTube 電玩影片剪輯</strong><time>2020 – 2022</time>
+                    <p>將電玩過程剪成有趣的影片供大家欣賞。</p>
+                </li>
+            </ul>
+        </section>
+
+        <footer class="foot">
+            <span class="en">MORE STAGES ▶</span>
+            <span class="url">完整作品與截圖：szuwenchen.github.io/szuwenchenwebsite</span>
+        </footer>
+        <p class="page-no">PAGE 2 / 2</p>
+    </section>
+
+</body>
+
+</html>
