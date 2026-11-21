@@ -1,1587 +1,255 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant-TW">
 
 <head>
-
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="陳嗣文 SzuWen Chen 的作品集 — 電玩程式開發 / 遊戲設計。">
+    <meta name="author" content="SzuWen Chen">
+    <meta name="theme-color" content="#0b0a1a">
+    <meta property="og:title" content="SzuWen Chen｜電玩程式開發 / 遊戲設計">
+    <meta property="og:description" content="陳嗣文的作品集：遊戲、互動裝置與 APP。">
+    <meta property="og:type" content="website">
 
-    <title>SzuWen's Portfolio Website</title>
+    <title>SzuWen Chen｜電玩程式開發 / 遊戲設計</title>
 
-    <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' shape-rendering='crispEdges'%3E%3Crect width='8' height='8' fill='%230b0a1a'/%3E%3Cpath fill='%23ffd447' d='M2 1h2v1h1v1h1v2H5v1H4v1H2z'/%3E%3C/svg%3E">
 
-    <!-- Custom CSS -->
-    <link href="css/freelancer.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body id="page-top" class="index">
+<body>
+    <canvas id="stars" aria-hidden="true"></canvas>
+    <div class="scanlines" aria-hidden="true"></div>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#page-top">陳嗣文 SzuWen-Chen</a>
+    <!-- HUD 導覽列 -->
+    <nav class="hud" aria-label="主選單">
+        <a class="hud-brand" href="#top"><span class="gem" aria-hidden="true"></span>陳嗣文<span class="hud-brand-en">SZUWEN CHEN</span></a>
+        <ul class="hud-links">
+            <li><a href="#status">STATUS</a></li>
+            <li><a href="#quest">QUEST</a></li>
+            <li><a href="#stage">STAGE</a></li>
+            <li><a href="#contact">CONTACT</a></li>
+        </ul>
+        <button type="button" class="hud-sound" id="soundToggle" aria-pressed="false" aria-label="音效開關" hidden>
+            <span class="snd-label">SOUND:</span><span id="soundState">OFF</span>
+        </button>
+    </nav>
+
+    <!-- 標題畫面 -->
+    <header class="title-screen" id="top">
+        <div class="title-inner">
+            <p class="eyebrow">PLAYER 1 ─ PORTFOLIO</p>
+            <div class="avatar avatar-lg">
+                <img src="img/Profile1.png" alt="陳嗣文的大頭照" width="256" height="256">
             </div>
+            <h1 class="logo">
+                <span class="logo-en">SZUWEN CHEN</span>
+                <span class="logo-zh">陳嗣文｜電玩程式開發 / 遊戲設計</span>
+            </h1>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="hidden">
-                        <a href="#page-top"></a>
+            <ul class="title-menu" id="titleMenu">
+                <li><a href="#stage" class="is-active"><span class="en">START GAME</span><span class="zh">作品集</span></a></li>
+                <li><a href="#status"><span class="en">STATUS</span><span class="zh">關於我</span></a></li>
+                <li><a href="#quest"><span class="en">QUEST LOG</span><span class="zh">經歷</span></a></li>
+                <li><a href="#contact"><span class="en">CONTACT</span><span class="zh">聯絡我</span></a></li>
+            </ul>
+            <p class="key-hint" aria-hidden="true">↑↓ 選擇　ENTER 確認</p>
+        </div>
+        <p class="copyright">© 2014–<span id="year">2026</span> SZUWEN CHEN　ALL RIGHTS RESERVED</p>
+    </header>
+
+    <main>
+        <!-- STATUS：關於我 -->
+        <section class="section" id="status">
+            <header class="section-head">
+                <p class="section-tag">STATUS</p>
+                <h2>關於我</h2>
+            </header>
+
+            <div class="status-grid">
+                <div class="win profile reveal">
+                    <div class="profile-top">
+                        <div class="avatar">
+                            <img src="img/Profile1.png" alt="" width="256" height="256" loading="lazy">
+                        </div>
+                        <div>
+                            <p class="profile-name">陳嗣文</p>
+                            <p class="profile-en">SzuWen Chen</p>
+                        </div>
+                    </div>
+                    <dl class="stat-list">
+                        <div><dt>CLASS</dt><dd>前端工程師 / 遊戲設計</dd></div>
+                        <div><dt>GUILD</dt><dd>大頑遊戲</dd></div>
+                        <div><dt>PLAY TIME</dt><dd><span id="playTime">12</span> 年（2014 起）</dd></div>
+                    </dl>
+                    <div class="dialogue">
+                        <p>我是陳嗣文，目前是一名自由接案者，接案內容著重在遊戲設計以及相關的程式開發，能夠針對專案預算及現有資源提出 CP 值最大化的內容，除此之外還能和業主成為朋友，給予人生方面的建議。</p>
+                    </div>
+                    <a class="btn" href="img/SzuwenProfile2020.pdf" target="_blank" rel="noopener">查看完整履歷（PDF）</a>
+                </div>
+
+                <div class="status-side">
+                    <div class="win reveal">
+                        <h3 class="win-title">SKILLS<span>技能</span></h3>
+                        <dl class="skill-list">
+                            <div><dt>程式語言</dt><dd><span class="chip">C#</span></dd></div>
+                            <div><dt>遊戲引擎</dt><dd><span class="chip">Unity</span></dd></div>
+                            <div><dt>視覺軟體</dt><dd><span class="chip">Photoshop</span><span class="chip">Illustrator</span><span class="chip">Premiere</span></dd></div>
+                            <div><dt>其他</dt><dd><span class="chip">互動程式設計</span><span class="chip">使用者體驗</span><span class="chip">文案企劃</span><span class="chip">技術研究</span></dd></div>
+                        </dl>
+                    </div>
+
+                    <div class="win reveal">
+                        <h3 class="win-title">TROPHIES<span>特殊經歷</span></h3>
+                        <ul class="trophy-list">
+                            <li>
+                                <span class="trophy" aria-hidden="true"></span>
+                                <div><strong>【新三國志手機版】團長</strong><span>處理外交、管理內政</span></div>
+                            </li>
+                            <li>
+                                <span class="trophy" aria-hidden="true"></span>
+                                <div><strong>【三國志戰略版】盟主、幹部</strong><span>外交、內政、戰略規劃</span></div>
+                            </li>
+                            <li>
+                                <span class="trophy" aria-hidden="true"></span>
+                                <div><strong>YouTube 電玩影片剪輯</strong><span>2020 – 2022</span></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUEST LOG：經歷 -->
+        <section class="section" id="quest">
+            <header class="section-head">
+                <p class="section-tag">QUEST LOG</p>
+                <h2>經歷</h2>
+            </header>
+
+            <div class="win quest-win reveal">
+                <h3 class="win-title">MAIN QUEST<span>工作</span></h3>
+                <ol class="quest-list">
+                    <li class="is-active">
+                        <span class="badge">進行中</span>
+                        <time>2023.12 – NOW</time>
+                        <strong>大頑遊戲</strong>
+                        <span class="role">前端工程師</span>
                     </li>
-                    <li class="page-scroll">
-                        <a href="#portfolio">Portfolio</a>
+                    <li>
+                        <span class="badge">CLEAR</span>
+                        <time>2023.02 – 2023.10</time>
+                        <strong>不或互動</strong>
+                        <span class="role">前端工程師</span>
                     </li>
-                    <li class="page-scroll">
-                        <a href="#about">About</a>
+                    <li class="is-active">
+                        <span class="badge">進行中</span>
+                        <time>2018.01 – NOW</time>
+                        <strong>Freelancer</strong>
+                        <span class="role">遊戲設計、遊戲程式開發</span>
                     </li>
-                    <li class="page-scroll">
-                        <a href="#contact">Contact</a>
+                    <li>
+                        <span class="badge">CLEAR</span>
+                        <time>2014.05 – 2017.11</time>
+                        <strong>鈊象電子</strong>
+                        <span class="role">高級軟體工程師</span>
+                    </li>
+                    <li>
+                        <span class="badge">CLEAR</span>
+                        <time>2011.07 – 2011.09</time>
+                        <strong>頑石創意 互動部</strong>
+                        <span class="role">實習</span>
+                    </li>
+                </ol>
+
+                <h3 class="win-title">TUTORIAL<span>學歷</span></h3>
+                <ol class="quest-list">
+                    <li>
+                        <span class="badge">CLEAR</span>
+                        <time>2011.09 – 2014.01</time>
+                        <strong>台北科技大學</strong>
+                        <span class="role">互動媒體設計研究所</span>
+                    </li>
+                    <li>
+                        <span class="badge">CLEAR</span>
+                        <time>2006.09 – 2011.01</time>
+                        <strong>台北科技大學</strong>
+                        <span class="role">電子工程系</span>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- STAGE SELECT：作品（由 js/projects.js 產生） -->
+        <section class="section" id="stage">
+            <header class="section-head">
+                <p class="section-tag">STAGE SELECT</p>
+                <h2>作品集</h2>
+            </header>
+            <div id="worlds"></div>
+            <noscript><p class="noscript">作品列表需要啟用 JavaScript 才能顯示。</p></noscript>
+        </section>
+
+        <!-- CONTACT：聯絡 -->
+        <section class="section" id="contact">
+            <header class="section-head">
+                <p class="section-tag">CONTACT</p>
+                <h2>聯絡我</h2>
+            </header>
+
+            <div class="win contact-win reveal">
+                <p class="contact-msg">要邀請 <b>陳嗣文</b> 加入隊伍嗎？<span class="caret" aria-hidden="true"></span></p>
+                <ul class="contact-list">
+                    <li>
+                        <a href="mailto:szuwenchen@gmail.com">
+                            <span class="label">EMAIL</span>
+                            <span class="value">szuwenchen@gmail.com</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://line.me/ti/p/~damnrose" target="_blank" rel="noopener">
+                            <span class="label">LINE</span>
+                            <span class="value">damnrose</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="tel:+886933120227">
+                            <span class="label">PHONE</span>
+                            <span class="value">0933-120-227</span>
+                        </a>
                     </li>
                 </ul>
             </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container-fluid -->
-    </nav>
+        </section>
+    </main>
 
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <img class="img-responsive" src="img/Profile1.png" alt="">
-                    <div class="intro-text">
-                        <span class="name">SzuWen-Chen</span>
-                        <span class="skills">電玩程式開發 / 遊戲設計</span>
-                        <hr class="star-light">
-                    </div>
-                    <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <a href="img/SzuwenProfile2020.pdf" target="_blank" class="btn btn-lg btn-outline">
-                        <i class="fa fa-download"></i> 了解更多
-                    </a>
-                </div>
-                </div>
-            </div>
-        </div>
-    </header>
+    <footer class="site-footer">
+        <p>THANK YOU FOR PLAYING</p>
+        <a href="#top">▲ 回到標題畫面</a>
+    </footer>
 
-    <!-- Portfolio Grid Section -->
-    <section id="portfolio">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>學生時期</h2>
-                    <hr class="star-primary">
-                </div>
-            </div>
-            <div class="row">
-                <!-- DrunBeat -->
-                <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="img/portfolio/DrumBeat/DrumBeat.png" class="img-responsive" alt="">
-                    </a>
-                </div>
-                <!-- EarthBeat -->
-                <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="img/portfolio/EarthBeat/EarthBeat.png" class="img-responsive" alt="">
-                    </a>
-                </div>
-                <!-- 4RHero -->
-                <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal3" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="img/portfolio/4RHero/4RHero.png" class="img-responsive" alt="">
-                    </a>
-                </div>
-                <!-- FireEscape -->
-                <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal4" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="img/portfolio/FireEscape/FireEscape.png" class="img-responsive" alt="">
-                    </a>
-                </div>
-                <!-- DigestiveTract -->
-                <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal5" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="img/portfolio/DigestiveTract/DigestiveTract.png" class="img-responsive" alt="">
-                    </a>
-                </div>
-                <!-- DinosaurFight -->
-                <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal6" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="img/portfolio/DinosaurFight/DinosaurFight.png" class="img-responsive" alt="">
-                    </a>
-                </div>
-                <!-- GPS -->
-                <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal7" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="img/portfolio/GPS/GPS.png" class="img-responsive" alt="">
-                    </a>
-                </div>
-                <!-- MotionMaker -->
-                <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal8" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="img/portfolio/MotionMaker/MotionMaker.png" class="img-responsive" alt="">
-                    </a>
-                </div>
-                <!-- CharPlay -->
-                <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal9" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="img/portfolio/CharPlay/CharPlay.png" class="img-responsive" alt="">
-                    </a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>社畜時期</h2>
-                    <hr class="star-primary">
-                </div>
-            </div>
-            <div class="row">
-                <!-- 叢戰巴龍 -->
-                <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal10" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="img/portfolio/BaronBattle/BaronBattle.jpg" class="img-responsive" alt="">
-                    </a>
-                </div>
-                <!-- 鬥地主1 -->
-                <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal11" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="img/portfolio/UnityDDZ/Logo.png" class="img-responsive" alt="">
-                    </a>
-                </div>
-                <!-- 鬥地主2 -->
-                <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal12" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="img/portfolio/CocosDDZ/Logo.jpg" class="img-responsive" alt="">
-                    </a>
-                </div>
-                 <!-- 金好運 -->
-                <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal13" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="img/portfolio/SGC/SGC_Icon.png" class="img-responsive" alt="">
-                    </a>
-                </div>
-                <!-- 守護檜季森林 -->
-                <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal14" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="img/portfolio/GuardianForest/com_img_desktop_logo.png" class="img-responsive" alt="">
-                    </a>
-                </div>
-                <!-- 做就對了 -->
-                <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal15" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="img/portfolio/DoTheRightThing/Logo.png" class="img-responsive" alt="">
-                    </a>
-                </div>
-                <!-- 青蚵嫂 -->
-                <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal16" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="img/portfolio/OysterObasan/Logo.png" class="img-responsive" alt="">
-                    </a>
-                </div>
-                <!-- 守護檜季森林2 -->
-                <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal17" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="img/portfolio/GuardianForest2/AppIcon_512.png" class="img-responsive" alt="">
-                    </a>
-                </div>
-                <!-- Barnabus -->
-                <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal18" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="img/portfolio/Barnabus/AppIcon_512.png" class="img-responsive" alt="">
-                    </a>
-                </div>
-            </div>
+    <!-- 作品詳細視窗 -->
+    <dialog class="stage-dialog" id="stageDialog" aria-labelledby="dlgTitle">
+        <div class="dlg-head">
+            <p class="dlg-no" id="dlgNo"></p>
+            <h2 id="dlgTitle"></h2>
+            <button type="button" class="dlg-close" id="dlgClose" aria-label="關閉">✕</button>
         </div>
-    </section>
+        <div class="dlg-body" id="dlgBody"></div>
+        <div class="dlg-foot">
+            <button type="button" class="btn btn-ghost" id="dlgPrev">◀ 上一關</button>
+            <button type="button" class="btn btn-ghost" id="dlgNext">下一關 ▶</button>
+        </div>
+    </dialog>
 
-    <!-- About Section -->
-    <section class="success" id="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>關於我</h2>
-                    <hr class="star-light">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-6 col-lg-offset-3 text-center">
-                    <h9>SzuWen Chen</h9>
-                    <p align="left">我是陳嗣文，目前是一名自由接案者，接案內容著重在遊戲設計以及相關的程式開發，能夠針對專案預算及現有資源提出CP值最大化的內容，除此之外還能和業主成為朋友，給予人生方面的建議。</p>
-                </div>
-            </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-            <br>
-            <div class="row">
-                <div class="col-lg-6 text-center">
-                    <h9>Experience</h9>
-                    <p>2023.12 - present / 大頑遊戲 / 前端工程師</p>
-                    <p>2023.2 - 2023.10 / 不或互動 / 前端工程師</p>
-                    <p>2018.1 - present / Freelancer / 遊戲設計、遊戲程式開發</p>
-                    <p>2014.5 - 2017.11 / 鈊象電子 / 高級軟體工程師</p>
-                    <p>2011.7 - 2011.9 / 頑石創意 互動部 / 實習</p>
-                    <p>2011.9 - 2014.1 / 台北科技大學 / 互動媒體設計研究所</p>
-                    <p>2006.9 - 2011.1 / 台北科技大學 / 電子工程系</p>
-                </div>
-                <div class="col-lg-6 text-center">
-                    <h9>Skills</h9>
-                    <p>程式語言 / C#</p>
-                    <p>遊戲引擎 / Unity</p>
-                    <p>視覺軟體 / PhotoShop, Illustrator, Premiere</p>
-                    <p>其他 / 互動程式設計, 使用者體驗, 文案企劃, 技術研究</p>
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-lg-6 col-lg-offset-3 text-center">
-                    <h9>Special Experience</h9>
-                    <p>【新三國志手機版】團長 / 處理外交、管理內政</p>
-                    <p>【三國志戰略版】盟主、幹部 / 外交、內政、戰略規劃</p>
-                    <p>2020 - 2022 / Youtube / 電玩影片剪輯</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>Contact Me</h2>
-                    <hr class="star-primary">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-                    <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-                    <form name="sentMessage" id="contactForm" novalidate>
-                        <div class="row control-group">
-                            <h8>Name: SzuWenChen 陳嗣文</h8>
-                        </div>
-                        <div class="row control-group">
-                            <h8>Phone Number: 0933-120-227</h8>
-                        </div>
-                        <div class="row control-group">
-                            <h8>LINE: damnrose</h8>
-                        </div>
-                        <div class="row control-group">
-                            <h8>Email Address: szuwenchen@gmail.com</h8>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
-    <div class="scroll-top page-scroll visible-xs visible-sm">
-        <a class="btn btn-primary" href="#page-top">
-            <i class="fa fa-chevron-up"></i>
-        </a>
-    </div>
-
-    <!-- Portfolio Modals -->
-    <!-- DrumBeat -->
-    <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>DrumBeat 陣令</h2>
-                            <hr class="star-primary">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/DrumBeat/Demo1.jpg" class="img-responsive img-centered" alt="" height="630" width="420">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/DrumBeat/Demo2.jpg" class="img-responsive img-centered" alt="" height="630" width="420">
-                                </div>
-                                <div class="col-md-6 col-md-offset-3">
-                                    <img src="img/portfolio/DrumBeat/Demo3.jpg" class="img-responsive img-centered" alt="" height="630" width="420">
-                                </div>
-                            </div>
-                            <h3>Concept</h3>
-                            <hr>
-                            <p align="left" >　　古代作戰時以<b>「擊鼓」</b>來發號施令，讓士兵們聽從鼓聲進行陣形的變化；我們讓使用者透過擊鼓的行為以及數位視覺的呈現，從而體驗這樣的過程。</p>
-                            <br>
-                            <h3>Interactive</h3>
-                            <hr>
-                            <p align="left" >　　使用者進行擊鼓的動作，而畫面會隨著鼓聲的大小呈現不同的潑墨效果；使用者停下動作後，畫面的墨會演變成一種古代的陣形。</p>
-                            <br>
-                            <h3>My Work</h3>
-                            <hr>
-                            <p align="left" >使用技術：Flash</p>
-                            <p align="left" >● 麥克風感測功能</p>
-                            <p align="left" >● 軟硬體整合串接</p>
-                            <ul class="list-inline item-details">
-                                <li>Type:
-                                    <strong><h7>互動裝置(團隊作品)</h7>
-                                    </strong>
-                                </li>
-                                <li>Year:
-                                    <strong><h7>2011</h7>
-                                    </strong>
-                                </li>
-                                <li>Source:
-                                    <strong><h7>國際YDW新世代設計工作營</h7>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- EarthBeat -->
-    <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>EarthBeat 星跳</h2>
-                            <hr class="star-primary">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/EarthBeat/Demo1.jpg" class="img-responsive img-centered" alt="" height="630" width="420">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/EarthBeat/Demo2.jpg" class="img-responsive img-centered" alt="" height="630" width="420">
-                                </div>
-                            </div>
-                            <h3>Concept</h3>
-                            <hr>
-                            <p align="left" >　　每一個大自然的生物都是地球的一個心跳，而人類不斷的開發環境使得地球的心跳失去了色彩，於是我們希望透過關燈這樣簡單又貼近生活的動作來傳達環境保育的重要性。</p>
-                            <br>
-                            <h3>Interactive</h3>
-                            <hr>
-                            <p align="left" >　　以心電圖的方式呈現整個地球的心跳。當使用者將電源開關開得越多，地球的心跳會出現越來越多工廠、電線桿等人為建築，並且失去了顏色；反之，當電源開關關得越多，地球的心跳又會回到綠意盎然的樣貌。</p>
-                            <p align="left" >相關影片：<br><a href="https://vimeo.com/67446383" target="_blank">裝置畫面 https://vimeo.com/67446383</a><br><a href="https://www.youtube.com/watch?v=W0djrIqbfg8" target="_blank">現場互動 https://www.youtube.com/watch?v=W0djrIqbfg8</a></p>
-                            <br>
-                            <h3>My Work</h3>
-                            <hr>
-                            <p align="left" >使用技術：Flash</p>
-                            <p align="left" >● 互動功能撰寫</p>
-                            <p align="left" >● 軟硬體整合串接</p>
-                            <ul class="list-inline item-details">
-                                <li>Type:
-                                    <strong><h7>互動裝置(團隊作品)</h7>
-                                    </strong>
-                                </li>
-                                <li>Year:
-                                    <strong><h7>2012</h7>
-                                    </strong>
-                                </li>
-                                <li>Source:
-                                    <strong><h7>新一代設計展</h7>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- 4RHero -->
-    <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>4R Hero</h2>
-                            <hr class="star-primary">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/4RHero/Demo1.jpg" class="img-responsive img-centered" alt="" height="630" width="455">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/4RHero/Demo2.jpg" class="img-responsive img-centered" alt="" height="630" width="455">
-                                </div>
-                            </div>
-                            <h3>Concept</h3>
-                            <hr>
-                            <p align="left" >　　資源該如何處理一直都是國際間關注的事情，而資源回收的觀念也在我們身邊時常被提到，而本遊戲將資源教育向下紮根，以孩童作為遊戲對象，讓其透過遊戲的樂趣去學習資源回收的觀念。</p>
-                            <br>
-                            <h3>Interactive</h3>
-                            <hr>
-                            <p align="left" >　　遊戲玩法為一般常見的橫向動作過關遊戲，玩家將扮演一隻由寶特瓶組成的機器人來進行闖關。遊戲可以讓使用者輸入回收物上的編碼，並於遊戲中獲得對應的道具，進而強化自己的機器人以達到過關的目的。</p>
-                            <br>
-                            <h3>My Work</h3>
-                            <hr>
-                            <p align="left" >使用技術：Construct2</p>
-                            <p align="left" >● 遊戲功能撰寫</p>
-                            <ul class="list-inline item-details">
-                                <li>Type:
-                                    <strong><h7>Web Game(團隊作品)</h7>
-                                    </strong>
-                                </li>
-                                <li>Year:
-                                    <strong><h7>2013</h7>
-                                    </strong>
-                                </li>
-                                <li>Source:
-                                    <strong><h7>微軟潛能創意盃</h7>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- FireEscpae -->
-    <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>Fire x Escape</h2>
-                            <hr class="star-primary">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/FireEscape/Demo1.jpg" class="img-responsive img-centered" alt="" height="630" width="378">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/FireEscape/Demo2.jpg" class="img-responsive img-centered" alt="" height="630" width="378">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/FireEscape/Demo3.jpg" class="img-responsive img-centered" alt="" height="630" width="378">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/FireEscape/Demo4.jpg" class="img-responsive img-centered" alt="" height="630" width="378">
-                                </div>
-                                <div class="col-md-6 col-md-offset-3">
-                                    <img src="img/portfolio/FireEscape/Demo5.jpg" class="img-responsive img-centered" alt="" height="630" width="378">
-                                </div>
-                            </div>
-                            <h3>防災教育遊戲之研究與創作－以火災逃生為例</h3>
-                            <hr>
-                            <p>防災教育｜數位遊戲學習｜教育遊戲設計｜火災應變表現</p>
-                            <br>
-                            <h3>Concept</h3>
-                            <hr>
-                            <p align="left" >　　有鑑於教育遊戲多數有乏味以及黏著度低的問題，我們期望打造一個有商業遊戲模式的教育遊戲，藉以探討提升遊戲黏著度的可能。遊戲題材則圍繞著火災逃生，除了融入火災逃生的教材以外遊戲本身也依此設計，也希望使用者在沉浸遊戲的過程中能獲得隱含其中的知識。</p>
-                            <br>
-                            <h3>Interactive</h3>
-                            <hr>
-                            <p align="left" >　　遊戲玩法為第一人稱的3D探索遊戲，以<b>「模擬真實」</b>的角度實現火場於遊戲關卡中，並輔以體力、道具、商店及排行榜等系統，提高使用者的遊戲體驗。使用者需面對火場狀況進行逃生選擇，以逃出火場為目的來過關。</p>
-                            <br>
-                            <h3>My Work</h3>
-                            <hr>
-                            <p align="left" >使用技術：Unity</p>
-                            <p align="left" >● 遊戲企劃設定</p>
-                            <p align="left" >● 遊戲介面設計</p>
-                            <p align="left" >● 遊戲功能撰寫</p>
-                            <ul class="list-inline item-details">
-                                <li>Type:
-                                    <strong><h7>PC Game</h7>
-                                    </strong>
-                                </li>
-                                <li>Year:
-                                    <strong><h7>2013</h7>
-                                    </strong>
-                                </li>
-                                <li>Source:
-                                    <strong><h7>論文研究</h7>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- DigestiveTract -->
-    <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>認識消化道</h2>
-                            <hr class="star-primary">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/DigestiveTract/Demo1.jpg" class="img-responsive img-centered" alt="" height="273" width="300">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/DigestiveTract/Demo2.jpg" class="img-responsive img-centered" alt="" height="273" width="300">
-                                </div>
-                                <div class="col-md-6 col-md-offset-3">
-                                    <img src="img/portfolio/DigestiveTract/Demo3.jpg" class="img-responsive img-centered" alt="" height="607" width="454">
-                                </div>
-                            </div>
-                            <h3>Introduction</h3>
-                            <hr>
-                            <p align="left" >　　科教館常備展「認識消化道」中的其中一項裝置，透過人形立板上的消化道以及64顆LED跑燈效果，演出食物進到人體後的旅程。</p>
-                            <br>
-                            <h3>Interactive</h3>
-                            <hr>
-                            <p align="left" >　　玩家可透過小螢幕解說了解食物進入人體後如何移動（依序是食道、胃、小腸、大腸），而一旁的人形立板也會在對應的部位作LED跑燈效果演出，並不斷重覆演出此過程。</p>
-                            <p align="left" >相關影片：<br><a href="https://youtu.be/2ZmkZ8C3CgY" target="_blank">LED跑燈DEMO https://youtu.be/2ZmkZ8C3CgY</a></p>
-                            <br>
-                            <h3>My Work</h3>
-                            <hr>
-                            <p align="left" >使用技術：Flash、Arduino</p>
-                            <p align="left" >● 跑燈電路設計及製作</p>
-                            <p align="left" >● 使用Arduino進行軟硬體整合</p>
-                            <ul class="list-inline item-details">
-                                <li>Type:
-                                    <strong><h7>互動裝置(團隊作品)</h7>
-                                    </strong>
-                                </li>
-                                <li>Year:
-                                    <strong><h7>2011</h7>
-                                    </strong>
-                                </li>
-                                <li>Source:
-                                    <strong><h7>頑石創意(實習)</h7>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- DinosaurFight -->
-    <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>恐龍格鬥遊戲</h2>
-                            <hr class="star-primary">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/DinosaurFight/Demo1.jpg" class="img-responsive img-centered" alt="" height="604" width="454">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/DinosaurFight/Demo2.jpg" class="img-responsive img-centered" alt="" height="604" width="454">
-                                </div>
-                            </div>
-                            <h3>Introduction</h3>
-                            <hr>
-                            <p align="left" >　　使用者選擇四隻恐龍的其中一隻與其它恐龍AI進行格鬥對戰。主要遊玩對象為孩童，是以認識恐龍為主要目標的教育遊戲。</p>
-                            <br>
-                            <h3>Interactive</h3>
-                            <hr>
-                            <embed src="swf/BDgameDragon_cs5_ver0.7.swf" width="640" height="480"></embed>
-                            <br>
-                            <h3>My Work</h3>
-                            <hr>
-                            <p align="left" >使用技術：Flash</p>
-                            <p align="left" >● 遊戲功能撰寫</p>
-                            <ul class="list-inline item-details">
-                                <li>Type:
-                                    <strong><h7>Flash Game</h7>
-                                    </strong>
-                                </li>
-                                <li>Year:
-                                    <strong><h7>2012</h7>
-                                    </strong>
-                                </li>
-                                <li>Source:
-                                    <strong><h7>頑石創意(接案)</h7>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- GPS -->
-    <div class="portfolio-modal modal fade" id="portfolioModal7" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>車用導航模擬裝置</h2>
-                            <hr class="star-primary">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/GPS/Demo1.jpg" class="img-responsive img-centered" alt="" height="630" width="355">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/GPS/Demo2.jpg" class="img-responsive img-centered" alt="" height="630" width="355">
-                                </div>
-                            </div>
-                            <h3>Introduction</h3>
-                            <hr>
-                            <p align="left" >　　使用者透過實體方向盤裝置輸入，並配合導航提示進行駕車模擬。此裝置為研究用的Prototype，用來研究女性於車用導航的使用者經驗。</p>
-                            <br>
-                            <h3>My Work</h3>
-                            <hr>
-                            <p align="left" >使用技術：Flash</p>
-                            <p align="left" >● 互動功能撰寫</p>
-                            <ul class="list-inline item-details">
-                                <li>Type:
-                                    <strong><h7>互動裝置</h7>
-                                    </strong>
-                                </li>
-                                <li>Year:
-                                    <strong><h7>2012</h7>
-                                    </strong>
-                                </li>
-                                <li>Source:
-                                    <strong><h7>楊元綺(接案)</h7>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- MotionMaker -->
-    <div class="portfolio-modal modal fade" id="portfolioModal8" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>MotionMaker</h2>
-                            <hr class="star-primary">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/MotionMaker/Demo1.jpg" class="img-responsive img-centered" alt="" height="630" width="394">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/MotionMaker/Demo2.jpg" class="img-responsive img-centered" alt="" height="630" width="394">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/MotionMaker/Demo3.jpg" class="img-responsive img-centered" alt="" height="630" width="394">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/MotionMaker/Demo4.jpg" class="img-responsive img-centered" alt="" height="630" width="394">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/MotionMaker/Demo5.jpg" class="img-responsive img-centered" alt="" height="630" width="394">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/MotionMaker/Demo6.jpg" class="img-responsive img-centered" alt="" height="630" width="394">
-                                </div>
-                                <div class="col-md-6 col-md-offset-3">
-                                    <img src="img/portfolio/MotionMaker/Demo7.jpg" class="img-responsive img-centered" alt="" height="630" width="394">
-                                </div>
-                            </div>
-                            <h3>Introduction</h3>
-                            <hr>
-                            <p align="left" >　　一款製作逐格動畫的應用型APP。透過APP中提供的功能(如畫筆、橡皮擦、貼紙、背景等等)即可製作簡單的逐格動畫，也可以匯出影片作分享。另外也提供輔助功能(如透寫、影格選取)來幫助動畫製作上的修改更順利。</p>
-                            <br>
-                            <h3>Interactive</h3>
-                            <hr>
-                            <p align="left" >相關影片：<br><a href="https://youtu.be/tA1pSLcYGCc" target="_blank">作品影片 https://youtu.be/tA1pSLcYGCc</a></p>
-                            <p align="left" >遊戲下載：<br><a href="download/MotionMaker.apk">MotionMaker.apk</a></p>
-                            <br>
-                            <h3>My Work</h3>
-                            <hr>
-                            <p align="left" >使用技術：Flash</p>
-                            <p align="left" >● 負責程式端之開發</p>
-                            <ul class="list-inline item-details">
-                                <li>Type:
-                                    <strong><h7>APP</h7>
-                                    </strong>
-                                </li>
-                                <li>Year:
-                                    <strong><h7>2012</h7>
-                                    </strong>
-                                </li>
-                                <li>Source:
-                                    <strong><h7>段綺維(接案)</h7>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- CharPlay -->
-    <div class="portfolio-modal modal fade" id="portfolioModal9" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>漢字遊</h2>
-                            <hr class="star-primary">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/CharPlay/Demo1.jpg" class="img-responsive img-centered" alt="" height="630" width="354">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/CharPlay/Demo2.jpg" class="img-responsive img-centered" alt="" height="630" width="354">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/CharPlay/Demo3.jpg" class="img-responsive img-centered" alt="" height="630" width="354">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/CharPlay/Demo4.jpg" class="img-responsive img-centered" alt="" height="630" width="354">
-                                </div>
-                            </div>
-                            <h3>Introduction</h3>
-                            <hr>
-                            <p align="left" >　　一款以學習漢字為主要目的遊戲APP。遊戲學習內容為與動物相關的漢字，玩家可以透過遊戲過關和收集的要素來掌握對漢字的認識。</p>
-                            <br>
-                            <h3>Interactive</h3>
-                            <hr>
-                            <p align="left" >　　進入關卡後系統會隨機釋出一種動物的漢字，玩家必須找到並且透過觸碰的方式來進行互動，也就是手指點擊畫面中正確對應於系統所出的動物漢字，且要在遊戲時間內找到系統出的所有漢字。遊戲提供圖鑑讓玩家閱覽找到的漢字說明及動物繪圖，也讓玩家體驗到收集的成就感。</p>
-                            <p align="left" >遊戲下載：<br><a href="download/CharPlay.apk">CharPlay.apk</a></p>
-                            <br>
-                            <h3>My Work</h3>
-                            <hr>
-                            <p align="left" >使用技術：Flash</p>
-                            <p align="left" >● 負責程式端之開發</p>
-                            <ul class="list-inline item-details">
-                                <li>Type:
-                                    <strong><h7>APP</h7>
-                                    </strong>
-                                </li>
-                                <li>Year:
-                                    <strong><h7>2013</h7>
-                                    </strong>
-                                </li>
-                                <li>Source:
-                                    <strong><h7>柯智翔(接案)</h7>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- 叢戰巴龍 -->
-    <div class="portfolio-modal modal fade" id="portfolioModal10" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>叢戰巴龍</h2>
-                            <hr class="star-primary">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/BaronBattle/Demo1.jpg" class="img-responsive img-centered" alt="" height="630" width="354">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/BaronBattle/Demo2.jpg" class="img-responsive img-centered" alt="" height="630" width="354">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/BaronBattle/Demo3.jpg" class="img-responsive img-centered" alt="" height="630" width="354">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/BaronBattle/Demo4.jpg" class="img-responsive img-centered" alt="" height="630" width="354">
-                                </div>
-                            </div>
-                            <h3>Introduction</h3>
-                            <hr>
-                            <p align="left" >　　玩家在遊戲中將扮演易大師與小龍及巴龍對抗，利用Kinect體感裝置偵測玩家「砍劈」的動作，來增加遊戲的互動性，並帶給玩家有自己在與敵人對戰的感受。</p>
-                            <br>
-                            <h3>Interactive</h3>
-                            <hr>
-                            <p align="left" >　　遊戲一開始會處在待機畫面，當Kinect偵測到玩家時便會開始遊戲。遊戲一開始提供一個教學關卡來幫助玩家練習揮砍的動作以及時機點，接著便進入與巴龍的實戰，隨著玩家的Combo數越高，揮砍的節奏也會出現的越快。在玩家必殺技量表充滿時，只要做出畫面指定動作就可以施展易大師的必殺技。</p>
-                            <p align="left" >相關影片：<br><a href="https://www.youtube.com/watch?v=DCkU95iyAkU" target="_blank">玩家互動 https://www.youtube.com/watch?v=DCkU95iyAkU</a><br><a href="https://www.facebook.com/media/set/?set=a.463782067140621.1073741831.457677167751111&type=3" target="_blank">臉書粉絲團紀錄</a></p>
-                            <br>
-                            <h3>My Work</h3>
-                            <hr>
-                            <p align="left" >使用技術：Unity、Kinect</p>
-                            <p align="left" >● 遊戲內容企劃</p>
-                            <p align="left" >● 遊戲功能實作</p>
-                            <ul class="list-inline item-details">
-                                <li>Type:
-                                    <strong><h7>互動裝置(團隊作品)</h7>
-                                    </strong>
-                                </li>
-                                <li>Year:
-                                    <strong><h7>2015</h7>
-                                    </strong>
-                                </li>
-                                <li>Source:
-                                    <strong><h7>米菲多媒體(接案)</h7>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Uinty鬥地主 -->
-    <div class="portfolio-modal modal fade" id="portfolioModal11" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>鬥地主</h2>
-                            <hr class="star-primary">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/UnityDDZ/Demo1.jpg" class="img-responsive img-centered" alt="" height="600" width="352">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/UnityDDZ/Demo2.jpg" class="img-responsive img-centered" alt="" height="600" width="352">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/UnityDDZ/Demo3.jpg" class="img-responsive img-centered" alt="" height="600" width="352">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/UnityDDZ/Demo4.jpg" class="img-responsive img-centered" alt="" height="600" width="352">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/UnityDDZ/Demo5.jpg" class="img-responsive img-centered" alt="" height="600" width="352">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/UnityDDZ/Demo6.jpg" class="img-responsive img-centered" alt="" height="600" width="352">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/UnityDDZ/Demo7.jpg" class="img-responsive img-centered" alt="" height="600" width="352">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/UnityDDZ/Demo8.jpg" class="img-responsive img-centered" alt="" height="600" width="352">
-                                </div>
-                                <div class="col-md-6 col-md-offset-3">
-                                    <img src="img/portfolio/UnityDDZ/Demo9.jpg" class="img-responsive img-centered" alt="" height="600" width="352">
-                                </div>
-                            </div>
-                            <h3>Introduction</h3>
-                            <hr>
-                            <p align="left" >　　以中國大陸最多人玩的棋牌遊戲「鬥地主」為遊戲核心，並提供了兩種模式，一種為帶有故事劇情及任務成分的劇情模式；另一種為傳統打錢的街機模式。遊戲中採用了「弱連網」的架構（部分功能須連線，但依然可以單機遊玩），以中國大陸二、三線城市為主要市場。</p>
-                            <br>
-                            <!--<h3>Interactive</h3>
-                            <hr>
-                            <p align="left" >相關檔案：<br><a href="https://itunes.apple.com/tw/app/jie-ji-dou-de-zhu/id975105833?l=zh&mt=8" target="_blank">iOS載點</a></p>
-                            <br>-->
-                            <h3>My Work</h3>
-                            <hr>
-                            <p align="left" >使用技術：Unity</p>
-                            <p align="left" >● 負責Clinet端功能製作</p>
-                            <p align="left" >● 連線功能接駁</p>
-                            <p align="left" >● 遊戲動態效果設計</p>
-                            <p align="left" >● 遊戲規格提案</p>
-                            <ul class="list-inline item-details">
-                                <li>Type:
-                                    <strong><h7>APP(團隊作品)</h7>
-                                    </strong>
-                                </li>
-                                <li>Year:
-                                    <strong><h7>2014</h7>
-                                    </strong>
-                                </li>
-                                <li>Source:
-                                    <strong><h7>鈊象電子</h7>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Cocos2dx鬥地主 -->
-    <div class="portfolio-modal modal fade" id="portfolioModal12" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>鬥地主</h2>
-                            <hr class="star-primary">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/CocosDDZ/Demo1.jpg" class="img-responsive img-centered" alt="" height="600" width="352">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/CocosDDZ/Demo2.jpg" class="img-responsive img-centered" alt="" height="600" width="352">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/CocosDDZ/Demo3.jpg" class="img-responsive img-centered" alt="" height="600" width="352">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/CocosDDZ/Demo4.jpg" class="img-responsive img-centered" alt="" height="600" width="352">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/CocosDDZ/Demo5.jpg" class="img-responsive img-centered" alt="" height="600" width="352">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/CocosDDZ/Demo6.jpg" class="img-responsive img-centered" alt="" height="600" width="352">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/CocosDDZ/Demo7.jpg" class="img-responsive img-centered" alt="" height="600" width="352">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/CocosDDZ/Demo8.jpg" class="img-responsive img-centered" alt="" height="600" width="352">
-                                </div>
-                                <div class="col-md-6 col-md-offset-3">
-                                    <img src="img/portfolio/CocosDDZ/Demo9.jpg" class="img-responsive img-centered" alt="" height="600" width="352">
-                                </div>
-                            </div>
-                            <h3>Introduction</h3>
-                            <hr>
-                            <p align="left" >　　以中國大陸最多人玩的棋牌遊戲「鬥地主」為遊戲核心，並提供了三種模式，一種為帶有劇情及RPG要素的闖關模式；第二種為傳統打錢的街機模式；第三種則為磨練牌技以獲得大量獎勵的試煉模式。遊戲中採用了「弱連網」的架構（部分功能須連線，但依然可以單機遊玩），主打中國大陸二、三線城市的小包市場。</p>
-                            <br>
-                            <h3>My Work</h3>
-                            <hr>
-                            <p align="left" >使用技術：Cocos2d-x</p>
-                            <p align="left" >● 負責Clinet端功能製作</p>
-                            <p align="left" >● 連線功能接駁</p>
-                            <p align="left" >● 遊戲動態效果設計</p>
-                            <p align="left" >● 遊戲規格提案</p>
-                            <ul class="list-inline item-details">
-                                <li>Type:
-                                    <strong><h7>APP(團隊作品)</h7>
-                                    </strong>
-                                </li>
-                                <li>Year:
-                                    <strong><h7>2015</h7>
-                                    </strong>
-                                </li>
-                                <li>Source:
-                                    <strong><h7>鈊象電子</h7>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- 金好運 -->
-    <div class="portfolio-modal modal fade" id="portfolioModal13" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>金好運娛樂城</h2>
-                            <hr class="star-primary">
-                            <p align="left" >遊戲下載：
-                                <br><a href="https://play.google.com/store/apps/details?id=com.goodluck777.panther" target="_blank">Android</a>
-                                <br><a href="https://itunes.apple.com/tw/app/%E9%87%91%E5%A5%BD%E9%81%8B%E5%A8%9B%E6%A8%82%E5%9F%8E/id1267732467?mt=8" target="_blank">iOS</a>
-                            </p>
-                            <h3>Introduction</h3>
-                            <hr>
-                            <p align="left" >　　不囉嗦！就是個博奕遊戲平台，可點上方的遊戲連結下載體驗。</p>
-                            <br>
-                            <h3>My Work</h3>
-                            <hr>
-                            <p align="left" >使用技術：Unity</p>
-                            <p align="left" >● 平台架構規劃</p>
-                            <p align="left" >● 平台功能製作</p>
-                            <p align="left" >● 連線功能接駁</p>
-                            <p align="left" >● 遊戲動態效果設計</p>
-                            <p align="left" >● 遊戲規格優化</p>
-                            <ul class="list-inline item-details">
-                                <li>Type:
-                                    <strong><h7>APP(團隊作品)</h7>
-                                    </strong>
-                                </li>
-                                <li>Year:
-                                    <strong><h7>2017</h7>
-                                    </strong>
-                                </li>
-                                <li>Source:
-                                    <strong><h7>鈊象電子</h7>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- 守護檜季森林 -->
-    <div class="portfolio-modal modal fade" id="portfolioModal14" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>守護檜季森林</h2>
-                            <hr class="star-primary">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/GuardianForest/Demo1.jpg" class="img-responsive img-centered" alt="" height="630" width="354">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/GuardianForest/Demo2.jpg" class="img-responsive img-centered" alt="" height="630" width="354">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/GuardianForest/Demo3.jpg" class="img-responsive img-centered" alt="" height="630" width="354">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/GuardianForest/Demo4.jpg" class="img-responsive img-centered" alt="" height="630" width="354">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/GuardianForest/Demo5.jpg" class="img-responsive img-centered" alt="" height="630" width="354">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/GuardianForest/Demo6.jpg" class="img-responsive img-centered" alt="" height="630" width="354">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/GuardianForest/Demo7.jpg" class="img-responsive img-centered" alt="" height="630" width="354">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/GuardianForest/Demo8.jpg" class="img-responsive img-centered" alt="" height="630" width="354">
-                                </div>
-                            </div>
-                            <h3>Introduction</h3>
-                            <hr>
-                            <p align="left" >　　守護檜季森林是一款以學習會計為主的教育遊戲。玩家在遊戲中扮演一名守護森林的元素使，在森林裡收集自然元素、培養戰鬥精靈、解決村民任務以充實自己的實力，並擊退所有來犯的怪物。遊戲戰鬥以會計題目問答來進行，所答對的題數及答對率會紀錄至排行榜，給老師或學生一個看到學習績效的管道。</p>
-                            <br>
-                            <h3>My Work</h3>
-                            <hr>
-                            <p align="left" >使用技術：Unity</p>
-                            <p align="left" >● 遊戲製作人</p>
-                            <p align="left" >● 遊戲主企劃</p>
-                            <p align="left" >● 遊戲主程式</p>
-                            <ul class="list-inline item-details">
-                                <li>Type:
-                                    <strong><h7>PC(團隊作品)</h7>
-                                    </strong>
-                                </li>
-                                <li>Year:
-                                    <strong><h7>2018</h7>
-                                    </strong>
-                                </li>
-                                <li>Source:
-                                    <strong><h7>元培醫事科技大學</h7>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- 做就對了 -->
-    <div class="portfolio-modal modal fade" id="portfolioModal15" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>做就對了</h2>
-                            <hr class="star-primary">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/DoTheRightThing/Demo1.jpg" class="img-responsive img-centered" alt="" height="630" width="354">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/DoTheRightThing/Demo2.jpg" class="img-responsive img-centered" alt="" height="630" width="354">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/DoTheRightThing/Demo3.jpg" class="img-responsive img-centered" alt="" height="630" width="354">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/DoTheRightThing/Demo4.jpg" class="img-responsive img-centered" alt="" height="630" width="354">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/DoTheRightThing/Demo5.jpg" class="img-responsive img-centered" alt="" height="630" width="354">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/DoTheRightThing/Demo6.jpg" class="img-responsive img-centered" alt="" height="630" width="354">
-                                </div>
-                            </div>
-                            <h3>Introduction</h3>
-                            <hr>
-                            <p align="left" >　　做就對了是一款以經營決策為主的AVG教育遊戲。玩家需要不斷的翻開事件卡，事件卡上描述了經營可能會碰到的狀況，以及兩個應對的決策選項，玩家只需要左滑或右滑來選擇便可做出決策。然而，決策的後果有時並不如表面上所看到的那樣，決策會使得玩家的人格參數產生變化，當人格參數低於標準值則會導致經營結束。</p>
-                            <br>
-                            <h3>My Work</h3>
-                            <hr>
-                            <p align="left" >使用技術：Unity</p>
-                            <p align="left" >● 遊戲製作人</p>
-                            <p align="left" >● 遊戲主企劃</p>
-                            <p align="left" >● 遊戲主程式</p>
-                            <ul class="list-inline item-details">
-                                <li>Type:
-                                    <strong><h7>PC(團隊作品)</h7>
-                                    </strong>
-                                </li>
-                                <li>Year:
-                                    <strong><h7>2019</h7>
-                                    </strong>
-                                </li>
-                                <li>Source:
-                                    <strong><h7>元培醫事科技大學</h7>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- 青蚵嫂 -->
-    <div class="portfolio-modal modal fade" id="portfolioModal16" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>青蚵嫂</h2>
-                            <hr class="star-primary">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/OysterObasan/Demo1.png" class="img-responsive img-centered" alt="" height="354" width="630">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/OysterObasan/Demo2.png" class="img-responsive img-centered" alt="" height="354" width="630">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/OysterObasan/Demo3.png" class="img-responsive img-centered" alt="" height="354" width="630">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/OysterObasan/Demo4.png" class="img-responsive img-centered" alt="" height="354" width="630">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/OysterObasan/Demo5.png" class="img-responsive img-centered" alt="" height="354" width="630">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/OysterObasan/Demo6.png" class="img-responsive img-centered" alt="" height="354" width="630">
-                                </div>
-                            </div>
-                            <h3>Introduction</h3>
-                            <hr>
-                            <p align="left" >體驗了一趟七股採蚵文化後油然而生的遊戲，玩家能夠體驗到從採蚵少女到青蚵嫂的生命故事，遊戲採用的是類似Tap的反應力玩法。</p>
-                            <br>
-                            <h3>My Work</h3>
-                            <hr>
-                            <p align="left" >使用技術：Unity</p>
-                            <p align="left" >● 遊戲製作人</p>
-                            <p align="left" >● 遊戲主企劃</p>
-                            <p align="left" >● 遊戲主程式</p>
-                            <ul class="list-inline item-details">
-                                <li>Type:
-                                    <strong><h7>APP(團隊作品)</h7>
-                                    </strong>
-                                </li>
-                                <li>Year:
-                                    <strong><h7>2019</h7>
-                                    </strong>
-                                </li>
-                                <li>Source:
-                                    <strong><h7>渚心</h7>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 守護檜季森林2 -->
-    <div class="portfolio-modal modal fade" id="portfolioModal17" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>守護檜季森林2</h2>
-                            <hr class="star-primary">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/GuardianForest2/ShopPhoto1.png" class="img-responsive img-centered" alt="" height="354" width="630">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/GuardianForest2/ShopPhoto2.png" class="img-responsive img-centered" alt="" height="354" width="630">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/GuardianForest2/ShopPhoto3.png" class="img-responsive img-centered" alt="" height="354" width="630">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/GuardianForest2/ShopPhoto4.png" class="img-responsive img-centered" alt="" height="354" width="630">
-                                </div>
-                            </div>
-                            <h3>Introduction</h3>
-                            <hr>
-                            <p align="left" >守護檜季森林2是一款以學習會計為主的教育遊戲。有別於一代，二代提供的是更貼近RPG類型的遊戲觀，玩家可以在多樣的場景裡實際的操控角色奔跑並進行戰鬥、學習技能、養成角色，期望增加遊戲的代入感從而讓玩家的學習過程更加沉浸。</p>
-                            <br>
-                            <h3>My Work</h3>
-                            <hr>
-                            <p align="left" >負責整個遊戲的內容規劃以及程式的撰寫，美術的部份有80%是透過網路的免費素材加工整合而成(如場景)，另外20%則是自行製作(如角色點陣圖、頭像、Icon)。程式的部份則是使用Unity TopDown Engine。</p>
-                            <p align="left" >另外要提的是因遊戲經費來源是學術界，因此除了上述的工作外，還需要和計劃主持人進行學術方面的討論以及迭代。</p>
-                            <br>
-                            <h3>My Job</h3>
-                            <hr>
-                            <p align="left" >● 遊戲製作人</p>
-                            <p align="left" >● 遊戲主企劃</p>
-                            <p align="left" >● 遊戲主程式</p>
-                            <p align="left" >● 美術素材整合</p>
-                            <ul class="list-inline item-details">
-                                <li>Type:
-                                    <strong><h7>APP(團隊作品)</h7>
-                                    </strong>
-                                </li>
-                                <li>Year:
-                                    <strong><h7>2021</h7>
-                                    </strong>
-                                </li>
-                                <li>Source:
-                                    <strong><h7>元培醫事科技大學</h7>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Barnabus -->
-    <div class="portfolio-modal modal fade" id="portfolioModal18" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>Barnabus</h2>
-                            <hr class="star-primary">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/Barnabus/1.png" class="img-responsive img-centered" alt="" height="354" width="630">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/Barnabus/2.png" class="img-responsive img-centered" alt="" height="354" width="630">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/Barnabus/3.png" class="img-responsive img-centered" alt="" height="354" width="630">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/Barnabus/4.png" class="img-responsive img-centered" alt="" height="354" width="630">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/Barnabus/5.png" class="img-responsive img-centered" alt="" height="354" width="630">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/Barnabus/6.png" class="img-responsive img-centered" alt="" height="354" width="630">
-                                </div>
-                                <div class="col-md-6">
-                                    <img src="img/portfolio/Barnabus/7.png" class="img-responsive img-centered" alt="" height="354" width="630">
-                                </div>
-                            </div>
-                            <h3>Introduction</h3>
-                            <hr>
-                            <p align="left" >Barnabus是一款用來教導孩童認識情緒的教育型遊戲，玩家可以透過遊戲中的關卡收集藥水，收集並解鎖可愛的小怪物，每隻小怪物皆有其代表的情緒以及專屬故事書，同時遊戲也提供父母一個平台可用來追蹤孩童的學習進度並給予獎勵。</p>
-                            <br>
-                            </p>
-                            <h3>My Work</h3>
-                            <hr>
-                            <p align="left" >在這個敏捷開發的專案裡，我主要負責前端內容製作以及版本的產出。</p>
-                            <p align="left" >前端的部份除了製作其中一款小遊戲外，還負責整個遊戲平台的串接整合，像是遊戲Flow、影片串流、玩家遊戲進度及行為紀錄、使用者帳號管理流程、第三方登入等等。</p>
-                            <p align="left" >也因為處在新創的環境裡，除了寫程式的工作以外也頻繁的參與產品企劃以及策略的討論。</p>
-                            <br>
-                            <h3>My Job</h3>
-                            <hr>
-                            <p align="left" >● 遊戲主程式</p>
-                            <ul class="list-inline item-details">
-                                <li>Type:
-                                    <strong><h7>APP(團隊作品)</h7>
-                                    </strong>
-                                </li>
-                                <li>Year:
-                                    <strong><h7>2023</h7>
-                                    </strong>
-                                </li>
-                                <li>Source:
-                                    <strong><h7>MEandMine</h7>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-    <script src="js/classie.js"></script>
-    <script src="js/cbpAnimatedHeader.js"></script>
-
-    <!-- Contact Form JavaScript -->
-    <script src="js/jqBootstrapValidation.js"></script>
-    <script src="js/contact_me.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="js/freelancer.js"></script>
-
+    <script src="js/projects.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>
